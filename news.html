@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>最新消息 - 可莉兒 Hair Salon</title>
+<style>
+  /* 全頁面設定 */
+  body {
+    font-family: Arial, sans-serif;
+    background:#f9fff9;
+    margin:0;
+    padding:0;
+    color:#333;
+    overflow-x: hidden; /* ✅ 防止整頁橫向滾動 */
+  }
+
+  /* Header */
+  header {
+    background:#a8e6cf;
+    padding:20px;
+  }
+  header h2 {
+    margin:0;
+    color:#4a7c53;
+    
+  }
+
+  /* 導航列 */
+  nav {
+    overflow-x:auto; /* ✅ 導航列可左右滑動 */
+    -webkit-overflow-scrolling: touch;
+  }
+  nav ul {
+    list-style:none;
+    display:flex;
+    gap:15px;
+    padding:10px 0 0;
+    margin:0;
+    white-space:nowrap; /* 不換行 */
+  }
+  nav li { flex:0 0 auto; }
+  nav a {
+    display:inline-block;
+    text-decoration:none;
+    color:#333;
+    font-weight:bold;
+    padding:6px 10px;
+    border-radius:4px;
+  }
+  nav a:hover, nav a.active {
+    background:#7bd8a2;
+    color:#fff;
+  }
+
+  /* 橫幅公告 */
+  #bannerDisplay {
+    width:100%; /* 全寬但不超出頁面 */
+    background:#ffe08a;
+    color:#333;
+    padding:12px 16px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    box-sizing:border-box;
+    font-weight:bold;
+    text-align:center;
+    box-shadow:0 1px 4px rgba(0,0,0,0.15);
+  }
+  #bannerDisplay button {
+    position:absolute;
+    right:16px;
+    background:#4a7c53;
+    color:#fff;
+    border:none;
+    padding:4px 8px;
+    cursor:pointer;
+    border-radius:4px;
+  }
+
+  /* 主內容區 */
+  main {
+    max-width:900px;
+    margin:20px auto;
+    padding:0 20px;
+  }
+  h1 { color:#4a7c53; text-align:center; margin-bottom:20px; }
+
+  article {
+    background:#fff;
+    border-radius:8px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 1px 5px rgba(0,0,0,0.1);
+  }
+  article h3 { margin:0 0 8px; color:#3a6f45; }
+  article time { display:block; font-size:0.85rem; color:#777; margin-bottom:10px; }
+  article p {
+    font-size:1rem;
+    line-height:1.6;
+    color:#444;
+    white-space: pre-wrap; /* 保留換行 */
+  }
+
+  .error { color:red; text-align:center; margin-top:20px; }
+  .hidden { display:none; }
+
+  footer {
+    margin-top:60px;
+    background:#a8e6cf;
+    padding:20px;
+    text-align:center;
+    font-size:0.9rem;
+  }
+  footer a, footer a:visited { color:#333; text-decoration:none; margin:0 8px; }
+  footer a:hover { color:#4a7c53; }
+
+  .fab {
+    position:fixed;
+    right:16px;
+    bottom:16px;
+    background:#7bd8a2;
+    color:#fff;
+    padding:12px 16px;
+    border-radius:999px;
+    text-decoration:none;
+    box-shadow:0 2px 6px rgba(0,0,0,.2);
+  }
+  @media (min-width:992px){ .fab{display:none;} }
+</style>
+</head>
+<body>
+
+<header>
+  <h2>可莉兒 Hair Salon</h2>
+  <nav>
+    <ul>
+      <li><a href="index.html">首頁</a></li>
+      <li><a href="about.html">關於我們</a></li>
+      <li><a href="services.html">服務項目</a></li>
+      <li><a href="pricing.html">價目表</a></li>
+      <li><a href="booking.html">預約</a></li>
+      <li><a href="news.html" class="active">最新消息</a></li>
+      <li><a href="contact.html">聯絡我們</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- 橫幅公告 -->
+<div id="bannerDisplay" class="hidden">
+  <span id="bannerText"></span>
+  <button onclick="document.getElementById('bannerDisplay').style.display='none'">關閉</button>
+</div>
+
+<main>
+  <h1>最新消息</h1>
+  <div id="articles"></div>
+  <div id="error" class="error hidden">公告載入失敗，請稍後再試</div>
+</main>
+
+<footer>
+  © 2025 可莉兒 Hair Salon <br>
+  地址：514 彰化縣溪湖鎮二溪路一段329巷30號 <br>
+  電話：<a href="tel:0988528051">0988-528-051</a><br>
+  營業時間：週一至週日 11:00–20:00<br>
+  <a href="https://www.facebook.com/share/17SjkpTezD/?mibextid=wwXIfr" target="_blank">Facebook</a> ｜ 
+  <a href="https://www.instagram.com/bijunzhan?igsh=dmdkbWRvbG1kd3Q0" target="_blank">Instagram</a> ｜
+  <a href="https://line.me/R/ti/p/@491xwhjb" target="_blank">LINE</a>
+</footer>
+
+<a href="tel:0988528051" class="fab">📞 立即預約</a>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAXbCW5UXRp085kJc9DjE5z2rbDJNFv47g",
+  authDomain: "hair-salon-56eb5.firebaseapp.com",
+  projectId: "hair-salon-56eb5",
+  storageBucket: "hair-salon-56eb5.firebasestorage.app",
+  messagingSenderId: "64472921085",
+  appId: "1:64472921085:web:78ba36b069597490625f94",
+  measurementId: "G-Z5224KYPR7"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const articlesDiv = document.getElementById("articles");
+const errorDiv = document.getElementById("error");
+const bannerDiv = document.getElementById("bannerDisplay");
+const bannerText = document.getElementById("bannerText");
+
+async function loadBanner(){
+  const doc = await db.collection("banner").doc("main").get();
+  if(doc.exists){
+    const data = doc.data();
+    bannerText.textContent = data.title ? `${data.title}｜${data.content}` : data.content;
+    bannerDiv.classList.remove("hidden");
+  }
+}
+
+async function loadAnnouncements(){
+  articlesDiv.innerHTML = "";
+  errorDiv.classList.add("hidden");
+  try {
+    const snapshot = await db.collection("announcements")
+      .orderBy("pinned","desc")
+      .orderBy("createdAt","desc")
+      .get();
+    if(snapshot.empty){
+      articlesDiv.innerHTML = "<p style='text-align:center;'>目前沒有公告</p>";
+      return;
+    }
+    snapshot.forEach(doc=>{
+      const data = doc.data();
+      const article = document.createElement("article");
+      article.innerHTML = `
+        <h3>${data.title}</h3>
+        <time>${data.createdAt?.toDate().toLocaleDateString() || ""}</time>
+        <p>${data.content}</p>
+      `;
+      articlesDiv.appendChild(article);
+    });
+  } catch(e){
+    console.error(e);
+    errorDiv.classList.remove("hidden");
+  }
+}
+
+loadBanner();
+loadAnnouncements();
+</script>
+</body>
+</html>

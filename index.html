@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>可莉兒 Hair Salon｜溪湖剪髮・染髮・燙髮</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="可莉兒 Hair Salon｜彰化溪湖專業美髮沙龍，提供剪髮、染髮、燙髮、護髮與造型設計。立即線上預約，打造專屬魅力造型。">
+<meta name="keywords" content="溪湖美髮, 溪湖剪髮, 溪湖染髮, 溪湖燙髮, 可莉兒 Hair Salon">
+
+<style>
+  body { font-family: Arial,sans-serif; background:#f9fff9; margin:0; padding:0; color:#333; }
+  header { background:#a8e6cf; padding:20px; }
+  header h2 { margin:0; color:#4a7c53; }
+  nav ul { list-style:none; display:flex; gap:15px; padding:10px 0 0; margin:0; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling: touch; }
+  nav li { flex:0 0 auto; }
+  nav a { text-decoration:none; color:#333; font-weight:bold; padding:6px 10px; border-radius:4px; display:inline-block; }
+  nav a:hover, nav a.active { background:#7bd8a2; color:#fff; }
+
+  /* 公告橫幅 */
+  #banner {
+    width: 100vw;
+    left: 50%;
+    margin-left: -50vw;
+    background: #ffe08a;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  #banner span { flex:1; }
+  #banner button {
+    position: absolute;
+    right: 16px;
+    background: #4a7c53;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  main { max-width:900px; margin:40px auto; padding:0 20px; }
+  h1, h2 { color:#4a7c53; margin-bottom:20px; }
+
+  /* 手機版首頁標題換行 */
+  .title-br { display: none; }
+  @media (max-width: 768px) {
+    .title-br { display: inline; }
+    h1 { font-size: 32px; line-height: 1.3; }
+  }
+
+  footer { margin-top:60px; background:#a8e6cf; padding:20px; text-align:center; font-size:0.9rem; }
+  footer a, footer a:visited { color:#333; text-decoration:none; margin:0 8px; }
+  footer a:hover { color:#4a7c53; }
+
+  /* 浮動按鈕 - 與價目表統一 */
+  .fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background:#4a7c53;
+    color:#fff;
+    text-decoration: none; /* 移除底線 */
+    border:none;
+    border-radius:50px;
+    padding:15px 20px;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+  .fab:hover { background:#3b5f40; }
+</style>
+</head>
+<body>
+
+<header>
+  <h2>可莉兒 Hair Salon</h2>
+  <nav>
+    <ul>
+      <li><a href="index.html" class="active">首頁</a></li>
+      <li><a href="about.html">關於我們</a></li>
+      <li><a href="services.html">服務項目</a></li>
+      <li><a href="pricing.html">價目表</a></li>
+      <li><a href="booking.html">預約</a></li>
+      <li><a href="news.html">最新消息</a></li>
+      <li><a href="contact.html">聯絡我們</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- 公告橫幅 -->
+<div id="banner">
+  <span id="bannerText">載入中...</span>
+  <button onclick="this.parentElement.style.display='none'">關閉</button>
+</div>
+
+<main>
+  <h1>歡迎來到<span class="title-br"><br></span>可莉兒Hair Salon</h1>
+  <p>我們提供專業的剪髮、染髮、燙髮與護髮服務，讓你擁有自信與魅力。</p>
+  <p>想要預約？滑動上方目錄至「預約」即可線上完成！</p>
+</main>
+
+<footer>
+  © 2025 可莉兒 Hair Salon <br>
+  地址：514 彰化縣溪湖鎮二溪路一段329巷30號 <br>
+  電話：<a href="tel:0988528051">0988-528-051</a><br>
+  營業時間：週一至週日 11:00–20:00<br>
+  <a href="https://www.facebook.com/share/17SjkpTezD/?mibextid=wwXIfr" target="_blank">Facebook</a> ｜ 
+  <a href="https://www.instagram.com/bijunzhan?igsh=dmdkbWRvbG1kd3Q0" target="_blank">Instagram</a> ｜
+  <a href="https://line.me/R/ti/p/@491xwhjb" target="_blank">LINE</a>
+</footer>
+
+<a href="tel:0988528051" class="fab">📞 立即預約</a>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAXbCW5UXRp085kJc9DjE5z2rbDJNFv47g",
+    authDomain: "hair-salon-56eb5.firebaseapp.com",
+    projectId: "hair-salon-56eb5"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const bannerSpan = document.getElementById("bannerText");
+
+  async function loadBanner(){
+    const doc = await db.collection("banner").doc("main").get();
+    if(doc.exists){
+      const data = doc.data();
+      bannerSpan.textContent = data.title ? `${data.title}｜${data.content}` : data.content;
+    } else {
+      bannerSpan.textContent = "目前沒有公告";
+    }
+  }
+
+  loadBanner();
+</script>
+
+</body>
+</html>
