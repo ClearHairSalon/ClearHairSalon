@@ -205,7 +205,6 @@ async function loadAnnouncements(){
   errorDiv.classList.add("hidden");
   try {
     const snapshot = await db.collection("announcements")
-      .orderBy("pinned","desc")
       .orderBy("createdAt","desc")
       .get();
     if(snapshot.empty){
